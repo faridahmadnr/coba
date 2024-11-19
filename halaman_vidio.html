@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Video</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background-image: url('back.avif'); /* Ganti 'background-image.jpg' dengan nama file gambar Anda */
+            background-size: cover; /* Gambar diatur agar mengisi seluruh latar belakang */
+            background-repeat: no-repeat; /* Gambar tidak diulang */
+            background-position: center; /* Gambar diposisikan di tengah */
+        }
+
+        .marquee-container {
+            width: 100%;
+            height: 50px; /* Tinggi running text */
+            overflow: hidden;
+            position: fixed;
+            bottom: 0; /* Pindah ke bagian bawah layar */
+            left: 0;
+            z-index: 1000;
+        }
+
+        .marquee-content {
+            font-size: 18px;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        .video-container {
+            width: 100vw;
+            height: calc(100vh - 50px); /* Tinggi video menyesuaikan tinggi layar dikurangi tinggi running text */
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        video {
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="autoplayVideo" controls autoplay>
+            <source src="lap.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            Your running text here...
+        </div>
+    </div>
+</body>
+</html>

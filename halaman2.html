@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jawab ya</title>
+    <style>
+        body {
+            background-image: url('back.avif'); /* Ganti 'background_image.jpg' dengan URL atau path ke gambar latar belakang Anda */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #f7f7f7;
+            border-radius: 10px;
+            background-color: #d464d42c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0,5s ease; /* Transisi halus saat bergerak */
+            overflow: hidden; /* Menghindari konten yang berlebihan */
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #dd6add;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background-color: #9104a3;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <h1> Hai Canti ♡ </h1>
+        
+            <img alt="gambar tidk tersedia" src="gbr.png" width="25%" id="icon">
+            <audio id="mySong">
+                <source src="lv2.MP3" type="audio/mp3">
+            </audio>
+            <script>
+                var mySong = document.getElementById("mySong")
+                var icon =document.getElementById("icon")
+        
+                icon.onclick = function(){
+                    mySong.play();
+                }
+            </script>
+        <h1 style="#">Mau ga jadi pacarku?</h1> 
+        <div class="button-container">
+            <button id="mauBtn" onclick="playVideo(); startBlinking();"> Mau </button>
+            <button id="gaMauBtn" onmouseover="startMoving()"> Ga mau </button>
+        </div>
+        <p>Click gambar</p>
+    </div>
+    
+    <video id="video" style="display: none;" controls autoplay>
+        <source src="lv.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <audio id="backgroundMusic" autoplay loop style="display: none;">
+        <source src="background_music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let blinkInterval;
+        let intervalId;
+
+        function playVideo() {
+            // Hentikan efek kedipan tombol jika sedang berlangsung
+            clearInterval(blinkInterval);
+            // Redirect ke halaman baru yang berisi video yang diputar secara otomatis
+            window.location.href = "halaman_vidio.html";
+        }
+
+        function playBackgroundMusic() {
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            backgroundMusic.play();
+        }
+
+        function blinkButton() {
+            const button = document.getElementById('mauBtn');
+            // Ubah warna tombol antara putih dan biru
+            if (button.style.backgroundColor === 'white') {
+                button.style.backgroundColor = '#007bff';
+            } else {
+                button.style.backgroundColor = 'white';
+            }
+        }
+
+        function startBlinking() {
+            // Mulai efek kedipan tombol setiap 500ms
+            blinkInterval = setInterval(blinkButton, 500);
+        }
+
+        // Fungsi untuk memulai pergerakan kotak saat kursor meninggalkan tombol "Ga mau"
+        document.getElementById('gaMauBtn').onmouseleave = function() {
+            clearInterval(intervalId); // Hentikan perpindahan saat kursor meninggalkan tombol
+        };
+
+        function startMoving() {
+            isMoving = true;
+            moveBox();
+        }
+
+        function moveBox() {
+            const container = document.getElementById('container');
+            const maxX = window.innerWidth - container.offsetWidth;
+            const maxY = window.innerHeight - container.offsetHeight;
+            const boundary = 10; // Batas perpindahan dari pinggir halaman
+
+            // Menghasilkan nilai acak untuk perpindahan horizontal dan vertikal
+            let randomX = Math.floor(Math.random() * (maxX - boundary * 2)) + boundary;
+            let randomY = Math.floor(Math.random() * (maxY - boundary * 2)) + boundary;
+
+            // Menambah atau mengurangi nilai acak agar box tetap berada di dalam batas tertentu
+            randomX = Math.max(boundary, Math.min(maxX - boundary, randomX));
+            randomY = Math.max(boundary, Math.min(maxY - boundary, randomY));
+
+            // Mengatur posisi box
+            container.style.left = randomX + 'px';
+            container.style.top = randomY + 'px';
+
+            // Memanggil fungsi moveBox setiap 0.5 detik
+            intervalId = setTimeout(moveBox, 500);
+        }
+    </script>
+</body>
+</html>
